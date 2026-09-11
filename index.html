@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMO Coffee & Dessert — 微信小程序 UX Case Study</title>
+  <meta name="description" content="LUMO 咖啡与甜点微信小程序产品设计案例，呈现商品发现、规格配置、自取与外卖履约、移动商家运营及可交互原型。">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="miniapp-simulator.css">
+  <link rel="icon" href="assets/ui/crayon-heart-small.png" type="image/png">
+</head>
+<body>
+  <!-- 背景肌理层 -->
+  <div class="paper-texture-overlay" aria-hidden="true"></div>
+
+  <!-- 顶部导航栏 -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="#hero" class="brand-badge">
+        <span class="brand-symbol">
+          <img src="assets/ui/crayon-heart-small.png" alt="LUMO Logo" class="brand-heart">
+        </span>
+        <div class="brand-names">
+          <span class="brand-en display-font">LUMO</span>
+          <span class="brand-zh">咖啡与甜点 · 作品集</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#overview" class="nav-link"><span>01</span> 概览</a>
+        <a href="#users-flow" class="nav-link"><span>02</span> 用户与流程</a>
+        <a href="#key-experiences" class="nav-link"><span>03</span> 关键体验</a>
+        <a href="#simulator" class="nav-link"><span>04</span> 交互原型</a>
+        <a href="#merchant-admin" class="nav-link"><span>05</span> 系统延伸</a>
+        <a href="#reflection" class="nav-link"><span>06</span> 结果与反思</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#simulator" class="cta-mini-button">
+          <span class="cta-dot">●</span> 体验原型
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体内容 -->
+  <main class="site-main">
+
+    <!-- 00. Hero 封面区 -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        <div class="hero-editorial">
+          <div class="hero-kicker">
+            <span class="kicker-pill">01 / PROJECT SNAPSHOT</span>
+            <span class="kicker-year">WECHAT MINI PROGRAM · 2026</span>
+          </div>
+
+          <p class="hero-project-name display-font">LUMO Coffee &amp; Dessert</p>
+
+          <h1 class="hero-headline">
+            在数字化点单里，<br>
+            找回纸张与咖啡的<span class="accent-italic hand-font">温热手作感。</span>
+          </h1>
+
+          <p class="hero-lead">
+            一套围绕精品咖啡馆设计的微信原生点单体验，连接商品发现、规格配置、自取 / 外卖履约与门店运营。
+          </p>
+
+          <!-- 项目关键元数据 -->
+          <div class="project-meta-grid">
+            <div class="meta-card">
+              <span class="meta-label">Project</span>
+              <span class="meta-value">Self-initiated Product Design Case Study</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Role</span>
+              <span class="meta-value">Product Design / UX / UI / Front-end</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Platform</span>
+              <span class="meta-value">WeChat Mini Program</span>
+            </div>
+            <div class="meta-card">
+              <span class="meta-label">Time</span>
+              <span class="meta-value">2026</span>
+            </div>
+          </div>
+
+          <div class="hero-buttons">
+            <a href="#simulator" class="crayon-cta-link">
+              <span class="btn-text">体验交互原型 <span>↓</span></span>
+            </a>
+            <a href="#overview" class="text-outline-link">
+              阅读案例 <span class="arrow">›</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 首屏右侧：艺术海报与真机浮窗 preview -->
+        <div class="hero-visual-frame">
+          <div class="poster-card paper-panel">
+            <div class="poster-media-container">
+              <img src="assets/home-background.jpg" alt="LUMO 手绘咖啡馆全景插画" class="poster-img">
+              <div class="poster-overlay-badge">
+                <span class="badge-title hand-font">Original Artwork</span>
+                <span class="badge-sub">彩色铅笔静物手绘 · 853 × 1844</span>
+              </div>
+            </div>
+            <div class="poster-caption">
+              <div class="caption-head">
+                <span class="quote-sign hand-font">“</span>
+                <p>品牌感不是额外装饰，而是从首页到履约都保持一致的体验语言。</p>
+              </div>
+              <div class="caption-tag-row">
+                <span class="paper-tag">#手账风美学</span>
+                <span class="paper-tag">#炭棕用墨</span>
+                <span class="paper-tag">#无悬浮卡片</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02. Context & Challenge -->
+    <section class="section-block overview-section narrative-section" id="overview" data-nav="overview">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num hand-font">02 / CONTEXT &amp; CHALLENGE</span>
+          <h2 class="section-title">不只是把点单界面做得更好看</h2>
+        </div>
+        <div class="context-layout">
+          <p class="context-statement">精品咖啡品牌重视空间、包装与服务体验，但移动点单很容易退化为一张高度标准化的商品列表。</p>
+          <div class="context-detail">
+            <span class="eyebrow">DESIGN CHALLENGE</span>
+            <p>真正的挑战，是在同一套产品中同时处理品牌表达、浏览效率、商品配置、履约清晰度与门店运营。</p>
+            <p class="context-opportunity"><strong>Opportunity</strong> — 用手绘纸感承接品牌气质，用清晰的任务结构完成从发现、决策到履约的闭环。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. Users & Usage Scenarios -->
+    <section class="section-block users-section narrative-section" id="users-flow" data-nav="users-flow">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num hand-font">03 / USERS &amp; USAGE SCENARIOS</span>
+          <h2 class="section-title">两类用户，共用一条服务链路</h2>
+          <p class="section-desc">以下是基于功能与使用环境建立的场景假设，不代表用户研究结论。</p>
+        </div>
+        <div class="user-columns">
+          <article class="user-column">
+            <span class="user-index hand-font">A</span>
+            <div>
+              <span class="eyebrow">CONSUMER</span>
+              <h3>需要快速完成决策的顾客</h3>
+              <ul class="scenario-list">
+                <li>上班前预约自取</li>
+                <li>办公室外卖</li>
+                <li>浏览新品与修改咖啡规格</li>
+                <li>查看订单状态并快速复购</li>
+              </ul>
+            </div>
+          </article>
+          <article class="user-column">
+            <span class="user-index hand-font">B</span>
+            <div>
+              <span class="eyebrow">MERCHANT</span>
+              <h3>在吧台处理高频任务的店主与店员</h3>
+              <ul class="scenario-list">
+                <li>查看待制作订单</li>
+                <li>更新制作与履约状态</li>
+                <li>商品售罄时调整库存</li>
+                <li>维护商品和销售状态</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. Goals & Success Criteria -->
+    <section class="section-block goals-section narrative-section" id="goals" data-nav="users-flow">
+      <div class="container">
+        <div class="section-header compact-header">
+          <span class="section-num hand-font">04 / GOALS &amp; SUCCESS CRITERIA</span>
+          <h2 class="section-title">先定义体验需要做到什么</h2>
+          <p class="section-desc">以下是设计目标与预期结果，不是已经测得的业务指标。</p>
+        </div>
+        <ol class="goal-lines">
+          <li><span>01</span><strong>减少上下文跳转</strong><p>关键选择留在当前页面。</p></li>
+          <li><span>02</span><strong>保持价格可预测</strong><p>状态、加价与总价同步。</p></li>
+          <li><span>03</span><strong>区分履约信息</strong><p>按模式显示门店、时间或地址。</p></li>
+          <li><span>04</span><strong>品牌不妨碍操作</strong><p>手绘表达不遮挡任务。</p></li>
+          <li><span>05</span><strong>支持移动运营</strong><p>手机处理订单、库存和商品状态。</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 05. Core Journey -->
+    <section class="section-block journey-section narrative-section" id="core-journey" data-nav="users-flow">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num hand-font">05 / CORE JOURNEY</span>
+          <h2 class="section-title">把选择、交易与履约连接起来</h2>
+          <p class="section-desc">只保留决定体验的关键节点，不用页面数量代替产品结构。</p>
+        </div>
+        <div class="journey-flow" aria-label="消费者核心用户路径">
+          <span>首页</span><i></i><span>选择履约</span><i></i><span>浏览菜单</span><i></i><span>选择商品</span><i></i><span>配置规格</span><i></i><span>购物车</span><i></i><span>确认履约</span><i></i><span>支付</span><i></i><span>订单状态</span>
+        </div>
+        <div class="merchant-flow-line">
+          <span class="eyebrow">MERCHANT FLOW</span>
+          <div>用户支付 <b>→</b> 新订单进入后台 <b>→</b> 制作 <b>→</b> 待取餐 / 配送 <b>→</b> 完成</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. Design Strategy -->
+    <section class="section-block strategy-section narrative-section" id="design-strategy" data-nav="key-experiences">
+      <div class="container">
+        <div class="section-header compact-header">
+          <span class="section-num hand-font">06 / DESIGN STRATEGY</span>
+          <h2 class="section-title">三条原则贯穿整个产品</h2>
+        </div>
+        <div class="strategy-grid">
+          <article><span>01</span><h3>Brand without friction</h3><p>品牌表达不能阻碍点单，氛围与操作层级必须同时成立。</p></article>
+          <article><span>02</span><h3>Decisions in context</h3><p>商品选择、规格和价格尽量在当前视觉上下文中完成。</p></article>
+          <article><span>03</span><h3>Split by fulfillment</h3><p>自取与外卖共享购物逻辑，但在履约阶段明确分流。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07. Key Experience 01 -->
+    <section class="section-block key-experience-section" id="key-experiences" data-nav="key-experiences">
+      <div class="container">
+        <div class="experience-heading">
+          <div><span class="section-num hand-font">07 / KEY EXPERIENCE 01</span><h2 class="section-title">发现与选购</h2></div>
+          <p>把“发现”与“决策”拆成两个节奏。</p>
+        </div>
+        <div class="experience-case experience-case-wide">
+          <div class="experience-copy">
+            <div class="decision-note"><span>Problem</span><p>促销、分类、门店与履约入口容易在首页争夺注意力。</p></div>
+            <div class="decision-note"><span>Decision</span><p>首页只承载品牌、门店、履约入口和精选推荐；完整选购进入 Menu。</p></div>
+            <div class="decision-note"><span>Why</span><p>固定分类与连续列表保持定位感；活动区随滚动收起，把空间还给商品。</p></div>
+          </div>
+          <div class="screen-evidence screen-pair">
+            <figure><img src="assets/case-study/experience-home.png" alt="LUMO 首页原型状态"><figcaption>Home · 先建立品牌与履约入口</figcaption></figure>
+            <figure><img src="assets/case-study/experience-menu.png" alt="LUMO 菜单原型状态"><figcaption>Menu · 分类与商品连续浏览</figcaption></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. Key Experience 02 -->
+    <section class="section-block key-experience-section feature-emphasis" id="configuration" data-nav="key-experiences">
+      <div class="container">
+        <div class="experience-heading">
+          <div><span class="section-num hand-font">08 / KEY EXPERIENCE 02</span><h2 class="section-title">规格与价格决策</h2></div>
+          <p>让用户在同一上下文完成一杯咖啡的配置。</p>
+        </div>
+        <div class="experience-case product-decision-layout">
+          <figure class="hero-screen-evidence"><img src="assets/case-study/experience-product.png" alt="LUMO 商品详情与内联规格配置"><figcaption>Product Detail · Inline configuration</figcaption></figure>
+          <div class="experience-copy">
+            <div class="decision-note"><span>Problem</span><p>规格逐层弹窗确认，会打断比较与决策。</p></div>
+            <div class="decision-note"><span>Decision</span><p>规格留在详情页，默认值、单选和多选状态持续可见。</p></div>
+            <div class="decision-note"><span>Evidence</span><p>附加价、数量和总价同步更新，加入结果在原按钮中反馈。</p></div>
+            <div class="option-proof" aria-label="规格配置范围"><span>杯型</span><span>甜度</span><span>冰量</span><span>加料多选</span><span>数量</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09. Key Experience 03 -->
+    <section class="section-block key-experience-section" id="fulfillment" data-nav="key-experiences">
+      <div class="container">
+        <div class="experience-heading">
+          <div><span class="section-num hand-font">09 / KEY EXPERIENCE 03</span><h2 class="section-title">一个购物车，两种履约模型</h2></div>
+          <p>购物逻辑共享，最后一公里的信息优先级不同。</p>
+        </div>
+        <div class="fulfillment-evidence-grid">
+          <article class="fulfillment-evidence">
+            <figure><img src="assets/case-study/experience-checkout-pickup.png" alt="LUMO 自取结算原型状态"></figure>
+            <div><span class="eyebrow">PICKUP</span><h3>确认到店取餐</h3><p>突出门店、取餐时间、取餐人和支付后的取餐提示。</p></div>
+          </article>
+          <article class="fulfillment-evidence">
+            <figure><img src="assets/case-study/experience-checkout-delivery.png" alt="LUMO 外卖结算原型状态"></figure>
+            <div><span class="eyebrow">DELIVERY</span><h3>确认配送到家</h3><p>突出地址、配送范围、配送费与预计送达时间。</p></div>
+          </article>
+        </div>
+        <p class="fulfillment-rationale"><strong>Design decision</strong> — 切换履约方式时同步重排信息，让用户只确认当前任务需要的内容。</p>
+      </div>
+    </section>
+
+    <!-- 10. 可交互体验 -->
+    <section class="section-block simulator-section" id="simulator">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num hand-font">10 / INTERACTIVE PROTOTYPE</span>
+          <h2 class="section-title">前面的设计决策，可以直接体验</h2>
+          <p class="section-desc">从商品发现到履约确认，原型保留了核心状态和反馈。可以按顺序完成任务，也可以直接跳转到指定场景。</p>
+        </div>
+
+        <ol class="prototype-tasks" aria-label="推荐体验任务">
+          <li><span>01</span><p>选择自取并浏览菜单</p></li>
+          <li><span>02</span><p>修改饮品规格并观察价格变化</p></li>
+          <li><span>03</span><p>切换到外卖并查看履约信息变化</p></li>
+        </ol>
+
+        <div class="simulator-stage-layout">
+          <!-- 左侧：模拟器控制面板与设计手记 -->
+          <div class="simulator-sidebar">
+            <div class="sim-nav-header">
+              <span class="sim-label">SCREEN SELECTOR</span>
+              <h3 class="sim-headline">体验主流程，也可跳转场景</h3>
+            </div>
+
+            <div class="simulator-toolbar" aria-live="polite">
+              <span id="prototypeStatus">当前：首页设计手记 · 手袋 0 件</span>
+              <button type="button" id="resetPrototypeBtn">重新开始体验</button>
+            </div>
+
+            <div class="sim-tabs-list" id="simTabs">
+              <button class="sim-tab active" data-screen="home">
+                <span class="tab-index">01</span>
+                <div class="tab-info">
+                  <span class="tab-title">首页 · 全景手绘与双模式</span>
+                  <span class="tab-desc">853×1844 完整插画、28% 负空间、单手拇指区</span>
+                </div>
+              </button>
+
+              <button class="sim-tab" data-screen="menu">
+                <span class="tab-index">02</span>
+                <div class="tab-info">
+                  <span class="tab-title">点单菜单 · 滚动阻尼与联动</span>
+                  <span class="tab-desc">Scroll-Reveal 时令展位收起、双列锚点同步</span>
+                </div>
+              </button>
+
+              <button class="sim-tab" data-screen="product">
+                <span class="tab-index">03</span>
+                <div class="tab-info">
+                  <span class="tab-title">商品详情 · 内联定制零弹窗</span>
+                  <span class="tab-desc">杯型/糖度/温度/加料直接点选，价格瞬时联动</span>
+                </div>
+              </button>
+
+              <button class="sim-tab" data-screen="checkout">
+                <span class="tab-index">04</span>
+                <div class="tab-info">
+                  <span class="tab-title">履约结算 · 自取与外卖分流</span>
+                  <span class="tab-desc">自取取餐码生成 vs 地图经纬度阶梯运费核算</span>
+                </div>
+              </button>
+
+              <button class="sim-tab" data-screen="admin">
+                <span class="tab-index">05</span>
+                <div class="tab-info">
+                  <span class="tab-title">商家中后台 · 移动端掌上经营</span>
+                  <span class="tab-desc">今日经营看板、拍照前压缩上新、库存实时流转</span>
+                </div>
+              </button>
+            </div>
+
+            <!-- 当前场景设计思考笔记 -->
+            <div class="sim-notes-card paper-panel" id="simNotes">
+              <div class="notes-header">
+                <span class="notes-tag hand-font">Design Insights</span>
+                <span class="notes-page-name" id="notesPageName">首页设计笔记</span>
+              </div>
+              <h4 class="notes-title" id="notesTitle">为什么拒绝将设计稿切成碎图？</h4>
+              <p class="notes-body" id="notesBody">首页直接采用完整的 853×1844 彩铅原画充当全景底层。顶部预留艺术留白以避让微信胶囊；自取/外卖与今日推荐集中于下半屏，既完整呈现画作，又符合人体工学单手触达。</p>
+              <div class="notes-meta-row" id="notesBadges">
+                <span class="paper-tag">单手拇指区</span>
+                <span class="paper-tag">动态安全区</span>
+                <span class="paper-tag">手绘蜡笔按钮</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧：iPhone 15 Pro 精细仿真视窗 -->
+          <div class="phone-mockup-wrapper">
+            <div class="iphone-device" data-testid="phone-frame">
+              <!-- 听筒与灵动岛 -->
+              <div class="device-dynamic-island">
+                <div class="island-camera"></div>
+              </div>
+
+              <!-- 状态栏 -->
+              <div class="device-status-bar">
+                <span class="status-time">9:41</span>
+                <div class="status-icons">
+                  <span class="icon-signal">●●●</span>
+                  <span class="icon-wifi">5G</span>
+                  <span class="icon-battery">85%</span>
+                </div>
+              </div>
+
+              <!-- 微信小程序胶囊按钮 -->
+              <div class="wechat-capsule">
+                <span class="capsule-dots">•••</span>
+                <span class="capsule-divider"></span>
+                <span class="capsule-circle">◎</span>
+              </div>
+
+              <!-- 视窗内部屏幕内容容器 -->
+              <div class="device-screen-viewport" id="deviceScreen" data-testid="device-screen" data-phone-screen aria-live="polite">
+                <!-- 由 LUMO_ENGINE 1:1 渲染原生页面 -->
+              </div>
+
+              <!-- 底部安全区 Home Indicator -->
+              <div class="device-home-indicator"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Merchant Operations -->
+    <section class="section-block merchant-system-section" id="merchant-admin" data-nav="merchant-admin">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num hand-font">11 / MERCHANT OPERATIONS</span>
+          <h2 class="section-title">顾客完成支付以后，服务仍在继续</h2>
+          <p class="section-desc">商家端是履约体验的下一环：门店处理订单，状态继续反馈给顾客。</p>
+        </div>
+
+        <div class="service-loop" aria-label="消费者与商家服务闭环">
+          <div><span>Customer</span><strong>提交订单</strong></div><i></i>
+          <div><span>Merchant</span><strong>收到待制作订单</strong></div><i></i>
+          <div><span>Barista</span><strong>更新制作状态</strong></div><i></i>
+          <div><span>Customer</span><strong>查看待取或配送</strong></div>
+        </div>
+
+        <div class="merchant-proof-layout">
+          <figure class="merchant-screen-evidence">
+            <img src="assets/case-study/experience-admin.png" alt="LUMO 商家移动后台今日经营页面">
+            <figcaption>Merchant Home · 待办优先的移动运营入口</figcaption>
+          </figure>
+          <div class="merchant-capabilities">
+            <article><span>01 / ORDER</span><h3>先处理当前订单</h3><p>集中呈现待处理、订单状态与履约方式。</p></article>
+            <article><span>02 / INVENTORY</span><h3>商品跟随现场变化</h3><p>调整库存、上下架，并提示低库存。</p></article>
+            <article><span>03 / ACCESS</span><h3>店主与店员职责分开</h3><p>店员处理订单与库存；店主管理完整运营配置。</p></article>
+            <p class="system-scope-note">Extended system includes product, campaign, member and store management.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. Visual System -->
+    <section class="section-block visual-contract-section" id="visual-system" data-nav="merchant-admin">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num hand-font">12 / VISUAL SYSTEM</span>
+          <h2 class="section-title">视觉语言不是装饰，而是持续的识别线索</h2>
+          <p class="section-desc">纸张、字体、蜡笔操作和低饱和色彩建立品牌感，核心任务仍以清晰为先。</p>
+        </div>
+
+        <div class="visual-principles">
+          <article class="visual-principle paper-sample">
+            <span class="visual-index">01 / PAPER</span>
+            <div class="paper-sample-field"></div>
+            <h3>暖米白纸张</h3>
+            <p><code>#FCF8F1</code> 连续铺底，细颗粒提供触感而不打断阅读。</p>
+          </article>
+          <article class="visual-principle type-sample">
+            <span class="visual-index">02 / TYPOGRAPHY</span>
+            <p class="type-cn">草莓和奶油之间，是轻盈的甜。</p>
+            <p class="type-en hand-font">Good Morning</p>
+            <h3>内容与气氛分工</h3>
+            <p>中文承担阅读，手写英文负责品牌语气。</p>
+          </article>
+          <article class="visual-principle crayon-sample">
+            <span class="visual-index">03 / CRAYON INTERACTION</span>
+            <div class="crayon-sample-row">
+              <img src="assets/ui/crayon-button-small.png" alt="小号蜡笔按钮纹理">
+              <img src="assets/ui/crayon-heart-small.png" alt="蜡笔爱心收藏图标">
+            </div>
+            <h3>操作状态保持可辨认</h3>
+            <p>真实蜡笔资产承载主行动与选中反馈。</p>
+          </article>
+          <article class="visual-principle color-sample">
+            <span class="visual-index">04 / COLOR</span>
+            <div class="compact-palette" aria-label="LUMO 核心色板">
+              <span style="--swatch:#FCF8F1" title="Paper #FCF8F1"></span>
+              <span style="--swatch:#3D332D" title="Charcoal #3D332D"></span>
+              <span style="--swatch:#887B72" title="Muted #887B72"></span>
+              <span style="--swatch:#E98999" title="Strawberry #E98999"></span>
+              <span style="--swatch:#D96E80" title="Deep Pink #D96E80"></span>
+            </div>
+            <h3>草莓粉只强调关键状态</h3>
+            <p>炭棕用于正文，暖棕用于辅助信息，粉色聚焦操作。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. Implementation & Validation -->
+    <section class="section-block implementation-section" id="implementation" data-nav="reflection">
+      <div class="container implementation-layout">
+        <div class="implementation-copy">
+          <span class="section-num hand-font">13 / IMPLEMENTATION &amp; VALIDATION</span>
+          <h2 class="section-title">从设计方案，到可运行产品</h2>
+          <p class="section-desc">微信原生前端与 CloudBase 连接商品、购物车、订单、支付、配送和商家权限。</p>
+          <ul class="implementation-list">
+            <li>消费者端与运营端共享业务状态</li>
+            <li>两种履约拥有独立校验和信息结构</li>
+            <li>测试覆盖价格、优惠、订单、库存与权限</li>
+          </ul>
+        </div>
+        <div class="validation-stat" aria-label="201 项自动化测试通过">
+          <strong class="display-font">201</strong>
+          <span>Automated tests passed</span>
+          <small>工程验证证据，不等同于用户体验结果</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. Outcome, Limitations & Reflection -->
+    <section class="section-block reflection-section" id="reflection" data-nav="reflection">
+      <div class="container">
+        <div class="section-header reflection-header">
+          <span class="section-num hand-font">14 / OUTCOME, LIMITATIONS &amp; REFLECTION</span>
+          <h2 class="section-title">如实说明做成了什么，也说明还没有验证什么</h2>
+        </div>
+        <div class="reflection-grid">
+          <article>
+            <span class="reflection-label">Outcome</span>
+            <h3>建立了一条可以运行的完整服务链路</h3>
+            <p>完成消费者点单、双履约、订单状态、移动商家后台和对应服务逻辑，并将核心流程带入网页原型。</p>
+          </article>
+          <article>
+            <span class="reflection-label">Limitations</span>
+            <h3>这是自发概念项目，不是上线增长案例</h3>
+            <p>尚无真实门店上线、转化、留存或满意度数据；用户场景和成功标准仍需验证。</p>
+          </article>
+          <article>
+            <span class="reflection-label">Next</span>
+            <h3>下一步应验证真实环境里的决策负担</h3>
+            <p>优先测试首次点单、复杂规格、履约切换，以及高峰期订单和库存操作。</p>
+          </article>
+        </div>
+        <blockquote class="closing-thought">
+          <p>这个项目让我意识到，品牌感并不来自增加装饰，而来自在整个服务流程里保持一致的体验语言。</p>
+          <footer>让设计回到对生活细腻观察的起点。</footer>
+        </blockquote>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo display-font">LUMO</span>
+        <span class="footer-copyright">© 2026 LUMO Coffee &amp; Dessert. All rights reserved.</span>
+      </div>
+      <div class="footer-links">
+        <a href="#hero">返回顶部 ↑</a>
+        <a href="#core-journey">核心路径</a>
+        <a href="#simulator">交互原型</a>
+        <a href="#reflection">结果与反思</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="miniapp-data.js"></script>
+  <script src="miniapp-engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
