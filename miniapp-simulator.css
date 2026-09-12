@@ -413,24 +413,42 @@
   pointer-events: none;
 }
 
+/* Fixed Top Stage: Store Header + Good Morning Hero (NEVER SCROLLS) */
+.device-screen-viewport .home-fixed-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  box-sizing: border-box;
+  padding-top: 86px; /* safe distance below Dynamic Island & Capsule */
+  pointer-events: auto;
+}
+
+/* Scroll Layer: ONLY mode-row and recommendation-surface scroll! */
 .device-screen-viewport .home-scroll-layer {
   position: absolute;
-  inset: 0;
-  z-index: 1;
+  top: 366px;
+  bottom: calc(var(--tab-height) + env(safe-area-inset-bottom, 0px));
+  left: 0;
+  right: 0;
+  z-index: 6;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
 
-.device-screen-viewport .home-content {
-  position: relative;
-  z-index: 1;
+.device-screen-viewport .home-scroll-layer::-webkit-scrollbar {
+  display: none;
+}
+
+.device-screen-viewport .home-scroll-content {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  min-height: 100%;
-  padding-bottom: calc(var(--tab-height) + 16px);
-  padding-top: 86px; /* safe distance below Dynamic Island & Capsule (top 50px + height 30px + 6px) */
+  padding: 54px 10px 84px;
+  min-height: auto;
 }
 
 .device-screen-viewport .home-head {
@@ -474,8 +492,8 @@
 
 .device-screen-viewport .hero {
   position: relative;
-  height: 300px;
-  min-height: 300px;
+  height: 240px;
+  min-height: 240px;
 }
 
 .device-screen-viewport .hero-copy {
@@ -629,13 +647,18 @@
 }
 
 .device-screen-viewport .recommendation-surface {
-  flex: 1;
-  margin-top: 8px;
+  flex: 0 0 auto;
+  height: auto;
+  align-self: stretch;
+  box-sizing: border-box;
+  margin-top: 6px;
   margin-bottom: 0;
-  padding: 12px 10px calc(var(--tab-height) + 16px);
-  border-radius: 12px 12px 0 0;
-  background: rgba(252, 248, 241, 0.88);
+  padding: 12px 10px 14px;
+  border-radius: 14px;
+  background: rgba(252, 248, 241, 0.9);
+  background-image: var(--paper-texture);
   backdrop-filter: blur(2px);
+  box-shadow: 0 4px 14px rgba(100, 70, 60, 0.07);
 }
 
 .device-screen-viewport .section-title {
@@ -644,37 +667,49 @@
   justify-content: space-between;
   margin: 0 4px 10px;
   font-family: var(--font-title-family), serif;
-  font-size: 16px;
+  font-size: 15.5px;
 }
 
 .device-screen-viewport .recommendations {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
 }
 
 .device-screen-viewport .recommendation {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 6px;
   min-width: 0;
-  min-height: 110px;
   padding: 7px;
   border: 1px solid rgba(194, 100, 117, 0.24);
-  border-radius: 7.5px 8.5px 7px 9px;
+  border-radius: 9px;
   background-color: rgba(255, 250, 245, 0.76);
   background-image: var(--paper-texture);
   box-shadow: inset 0 0 0 1px rgba(233, 137, 153, 0.05);
   cursor: pointer;
+  transition: transform 120ms ease;
+}
+
+.device-screen-viewport .recommendation:active {
+  transform: scale(0.98);
 }
 
 .device-screen-viewport .recommendation .recommendation-media {
   width: 100%;
-  height: 98px;
+  height: 96px;
   border: none;
   border-radius: 7px;
   background: rgba(255, 255, 255, 0.28);
+  overflow: hidden;
+}
+
+.device-screen-viewport .recommendation .recommendation-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 7px;
 }
 
 .device-screen-viewport .rec-copy {

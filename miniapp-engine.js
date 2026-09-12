@@ -255,30 +255,35 @@
     return `
       <div class="page-home">
         <img class="home-background" src="assets/home-background.jpg" alt="Home Background" />
+
+        <!-- 1. Pinned Top Stage: Store Header + Good Morning Hero (NEVER SCROLLS) -->
+        <div class="home-fixed-top">
+          <div class="home-head">
+            <div class="store" data-action="go-stores">
+              <span class="accent">●</span>
+              <span>${store.name}⌄</span>
+            </div>
+            <div class="head-actions">
+              <span class="head-action" data-action="go-menu">⌕</span>
+              <span class="head-action" data-action="more-campaign">•••</span>
+            </div>
+          </div>
+
+          <div class="hero">
+            <div class="hero-copy">
+              <span class="good display">${settings.greeting}</span>
+              <span class="hero-subtitle">${settings.heroSubtitle}</span>
+              <div class="hero-pill" data-action="hero-cta">
+                <img class="handdrawn-button-art" src="assets/ui/crayon-button-small.png" alt="" />
+                <span>${settings.heroAction}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Scrollable Layer: ONLY mode-row and recommendation-surface scroll! -->
         <div class="home-scroll-layer">
-          <div class="home-content">
-            <div class="home-head">
-              <div class="store" data-action="go-stores">
-                <span class="accent">●</span>
-                <span>${store.name}⌄</span>
-              </div>
-              <div class="head-actions">
-                <span class="head-action" data-action="go-menu">⌕</span>
-                <span class="head-action" data-action="more-campaign">•••</span>
-              </div>
-            </div>
-
-            <div class="hero" style="height: 300px;">
-              <div class="hero-copy">
-                <span class="good display">${settings.greeting}</span>
-                <span class="hero-subtitle">${settings.heroSubtitle}</span>
-                <div class="hero-pill" data-action="hero-cta">
-                  <img class="handdrawn-button-art" src="assets/ui/crayon-button-small.png" alt="" />
-                  <span>${settings.heroAction}</span>
-                </div>
-              </div>
-            </div>
-
+          <div class="home-scroll-content">
             <div class="mode-row">
               <div class="mode-item mode-pickup" data-action="choose-mode" data-mode="pickup">
                 <img class="handdrawn-button-art" src="assets/ui/crayon-button-medium.png" alt="" />
@@ -317,6 +322,7 @@
             </div>
           </div>
         </div>
+
         ${renderTabBar('home')}
       </div>
     `;
@@ -1484,6 +1490,57 @@
         state.note = e.target.value.slice(0, 80);
       }
     });
+
+    // Forward wheel events over home-fixed-top down to home-scroll-layer
+    viewport.addEventListener('wheel', (e) => {
+      if (state.screen === 'home') {
+        const fixedTop = viewport.querySelector('.home-fixed-top');
+        const scrollLayer = viewport.querySelector('.home-scroll-layer');
+        if (fixedTop && scrollLayer && fixedTop.contains(e.target)) {
+          scrollLayer.scrollTop += e.deltaY;
+        }
+      }
+    }, { passive: true });
+
+    // Enable intuitive mouse drag-to-scroll on scroll layers inside simulator
+    let isDragging = false;
+    let startY = 0;
+    let initialScrollTop = 0;
+    let activeScrollable = null;
+    let dragDistance = 0;
+
+    viewport.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return;
+      const scrollable = e.target.closest('.home-scroll-layer, .product-scroll-layer, .checkout-scroll-layer, .menu-products, .menu-categories, .orders-content, .account-scroll-layer');
+      if (scrollable) {
+        isDragging = true;
+        activeScrollable = scrollable;
+        startY = e.clientY;
+        initialScrollTop = scrollable.scrollTop;
+        dragDistance = 0;
+      }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging || !activeScrollable) return;
+      const deltaY = e.clientY - startY;
+      dragDistance += Math.abs(deltaY);
+      activeScrollable.scrollTop = initialScrollTop - deltaY;
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+      activeScrollable = null;
+    });
+
+    // Suppress click if user dragged
+    viewport.addEventListener('click', (e) => {
+      if (dragDistance > 6) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+      }
+      dragDistance = 0;
+    }, true);
 
     seedDemoCart();
     render();
